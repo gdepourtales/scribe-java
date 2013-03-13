@@ -20,6 +20,7 @@ public class ServiceBuilder
   private String callback;
   private Api api;
   private String scope;
+  private String approvalPrompt;
   private SignatureType signatureType;
   
   /**
@@ -127,7 +128,7 @@ public class ServiceBuilder
   /**
    * Configures the signature type, choose between header, querystring, etc. Defaults to Header
    *
-   * @param scope The OAuth scope
+   * @param type The OAuth scope
    * @return the {@link ServiceBuilder} instance for method chaining
    */
   public ServiceBuilder signatureType(SignatureType type)
@@ -135,6 +136,13 @@ public class ServiceBuilder
     Preconditions.checkNotNull(type, "Signature type can't be null");
     this.signatureType = type;
     return this;
+  }
+
+
+  public ServiceBuilder approvalPrompt(String prompt) {
+      Preconditions.checkNotNull(prompt, "Approval prompt can't be null");
+      this.approvalPrompt = prompt;
+      return this;
   }
   
   /**
@@ -147,6 +155,6 @@ public class ServiceBuilder
     Preconditions.checkNotNull(api, "You must specify a valid api through the provider() method");
     Preconditions.checkEmptyString(apiKey, "You must provide an api key");
     Preconditions.checkEmptyString(apiSecret, "You must provide an api secret");
-    return api.createService(new OAuthConfig(apiKey, apiSecret, callback, signatureType, scope));
+    return api.createService(new OAuthConfig(apiKey, apiSecret, callback, signatureType, scope, approvalPrompt));
   }
 }
