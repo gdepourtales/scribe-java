@@ -19,10 +19,11 @@ public class OAuthConfigTest
   @Test
   public void shouldOverrideDefaultsIfSet()
   {
-    OAuthConfig config = new OAuthConfig("key", "secret", "http://callback", SignatureType.Header, "scope");
+    OAuthConfig config = new OAuthConfig("key", "secret", "http://callback", SignatureType.Header, "scope", "approvalPrompt");
     assertEquals("http://callback", config.getCallback());
     assertEquals("key", config.getApiKey());
     assertEquals("secret", config.getApiSecret());
+    assertEquals("approvalPrompt", config.getApprovalPrompt());
   }
 
 }
